@@ -1,0 +1,10 @@
+builtin_interfaces/Time timestamp
+geometry_msgs/PoseStamped pose
+float64 npk_nitrogen
+float64 npk_phosphorus
+float64 npk_potassium
+float64 moisture
+float64 temperature
+float64 humidity
+float64 ph
+string sample_id

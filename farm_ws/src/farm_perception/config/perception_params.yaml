@@ -1,0 +1,4 @@
+perception_node:
+  ros__parameters:
+    contact_threshold: 0.5
+    depth_threshold_mm: 50.0

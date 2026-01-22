@@ -1,0 +1,36 @@
+# ROS 2 workspace
+farm_ws/build/
+farm_ws/install/
+farm_ws/log/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+.eggs/
+venv/
+env/
+ENV/
+
+# IDE
+.vscode/
+.idea/
+*.sublime-*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temp
+*.tmp
+*.bak
+*.swp
+*~
+
+# Gazebo
+*.sdf.backup
+/tmp/*.urdf
+/tmp/*.sdf

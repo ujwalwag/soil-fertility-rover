@@ -1,0 +1,9 @@
+moveit_controller_manager:
+  ros__parameters:
+    controller_names: [arm_controller]
+    arm_controller:
+      type: moveit_simple_controller_manager/MoveItSimpleControllerManager
+      action_ns: follow_joint_trajectory
+      default: true
+      type: FollowJointTrajectory
+      joints: [arm_joint1, arm_joint2]

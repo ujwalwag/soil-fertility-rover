@@ -1,0 +1,7 @@
+# Request for soil sampling
+geometry_msgs/PoseStamped target_pose
+float32 depth
+---
+bool success
+string message
+string sample_id

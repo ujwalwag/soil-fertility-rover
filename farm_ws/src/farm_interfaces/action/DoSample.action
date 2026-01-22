@@ -1,0 +1,9 @@
+geometry_msgs/PoseStamped target_pose
+float32 depth
+---
+bool success
+string message
+string sample_id
+---
+float32 progress
+string status_message

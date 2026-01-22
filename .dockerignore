@@ -1,0 +1,8 @@
+farm_ws/build
+farm_ws/install
+farm_ws/log
+.git
+.gitignore
+*.md
+media/
+docs/
