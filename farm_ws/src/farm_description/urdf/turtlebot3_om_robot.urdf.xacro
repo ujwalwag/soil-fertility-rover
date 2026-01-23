@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<!-- 
+  Wrapper for TurtleBot3 Waffle with Open Manipulator
+  Source: https://github.com/Daniella1/urdf_files_dataset
+  Original: oems/xacro_generated/turtlebot3_robotis/turtlebot3_description
+-->
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="turtlebot3_om_robot">
+  
+  <!-- The actual URDF is in turtlebot3_om/turtlebot3_waffle_for_open_manipulator.urdf -->
+  <!-- This file can be used to add custom modifications if needed -->
+  
+</robot>

@@ -18,10 +18,10 @@ def generate_launch_description():
     z_pose = LaunchConfiguration('z_pose', default='0.0')
     yaw_pose = LaunchConfiguration('yaw_pose', default='0.0')
     
-    # Launch Gazebo with the farm world
-    # Using ExecuteProcess for Gazebo Harmonic
+    # Launch Gazebo with the farm world (paused by default)
+    # No -r flag = simulation starts paused (user can press play in GUI)
     gazebo_process = ExecuteProcess(
-        cmd=['gz', 'sim', '-r', '-s', world_file],
+        cmd=['gz', 'sim', world_file],
         output='screen'
     )
     

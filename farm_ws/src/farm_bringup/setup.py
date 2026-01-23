@@ -11,7 +11,8 @@ setup(
         ('share/' + package_name, ['package.xml']),
         ('share/' + package_name + '/launch', [
             'launch/sim_bringup.launch.py',
-            'launch/sim.launch.py'
+            'launch/sim.launch.py',
+            'launch/complete_mission.launch.py'
         ]),
     ],
     install_requires=['setuptools'],

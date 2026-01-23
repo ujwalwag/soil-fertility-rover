@@ -24,6 +24,7 @@ setup(
         'console_scripts': [
             'mission_state_machine = farm_mission.mission_state_machine:main',
             'waypoint_sampler = farm_mission.waypoint_sampler:main',
+            'soil_sampling_mission = farm_mission.soil_sampling_mission:main',
         ],
     },
 )

@@ -302,11 +302,15 @@
   </joint>
   
   <!-- Gazebo plugins for ros2_control -->
+  <!-- Note: ros2_control plugin will be added when controllers are configured -->
+  <!-- For now, commented out to avoid plugin loading errors -->
+  <!--
   <gazebo>
-    <plugin filename="libgazebo_ros2_control.so" name="gazebo_ros2_control">
+    <plugin filename="libgz_ros2_control.so" name="gz_ros2_control">
       <parameters>$(find farm_control)/config/ros2_control.yaml</parameters>
     </plugin>
   </gazebo>
+  -->
   
   <!-- Material definitions for Gazebo -->
   <gazebo reference="base_link">

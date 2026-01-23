@@ -17,7 +17,7 @@ planner_server:
 
 bt_navigator:
   ros__parameters:
-    use_sim_time: false
+    use_sim_time: true
     default_nav_to_pose_bt_xml: ""
     default_nav_through_poses_bt_xml: ""
     default_follow_path_bt_xml: ""
