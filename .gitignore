@@ -1,4 +1,7 @@
 # ROS 2 workspace
+build/
+install/
+log/
 farm_ws/build/
 farm_ws/install/
 farm_ws/log/
