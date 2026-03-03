@@ -1,0 +1,18 @@
+# ros_gz_bridge: Gazebo -> ROS (world farm_world, model ugvbeast). Clock in gz_bridge_clock.
+- ros_topic_name: "/scan"
+  gz_topic_name: "/world/farm_world/model/ugvbeast/link/base_scan/sensor/lds_lfcd_sensor/scan"
+  ros_type_name: "sensor_msgs/msg/LaserScan"
+  gz_type_name: "gz.msgs.LaserScan"
+  direction: GZ_TO_ROS
+
+- ros_topic_name: "/imu"
+  gz_topic_name: "/world/farm_world/model/ugvbeast/link/imu_link/sensor/imu/imu"
+  ros_type_name: "sensor_msgs/msg/Imu"
+  gz_type_name: "gz.msgs.IMU"
+  direction: GZ_TO_ROS
+
+- ros_topic_name: "/camera/image_raw"
+  gz_topic_name: "/world/farm_world/model/ugvbeast/link/camera_link/sensor/camera/image_raw"
+  ros_type_name: "sensor_msgs/msg/Image"
+  gz_type_name: "gz.msgs.Image"
+  direction: GZ_TO_ROS

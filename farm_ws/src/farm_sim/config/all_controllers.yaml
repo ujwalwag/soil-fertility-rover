@@ -1,0 +1,53 @@
+controller_manager:
+  ros__parameters:
+    update_rate: 100
+    use_sim_time: true
+    robot_description_param_name: robot_description
+
+    joint_state_broadcaster:
+      type: joint_state_broadcaster/JointStateBroadcaster
+
+    diff_drive_controller:
+      type: diff_drive_controller/DiffDriveController
+
+    arm_controller:
+      type: joint_trajectory_controller/JointTrajectoryController
+
+# Controller parameters must be in separate top-level sections (controller_manager
+# only holds type; each controller gets its params from its own section)
+diff_drive_controller:
+  ros__parameters:
+    left_wheel_names: ["wheel_left_joint"]
+    right_wheel_names: ["wheel_right_joint"]
+    wheel_separation: 0.18
+    wheels_per_side: 1
+    wheel_radius: 0.04
+    publish_rate: 50.0
+    odom_frame_id: odom
+    base_frame_id: base_link
+    open_loop: false
+    enable_odom_tf: true
+    cmd_vel_timeout: 0.5
+    use_stamped_vel: false
+    publish_cmd: true
+    publish_odom: true
+    odom_publish_period: 0.02
+    cmd_vel_topic: /cmd_vel
+    odom_topic: /odom
+
+arm_controller:
+  ros__parameters:
+    joints:
+      - joint1
+      - joint2
+      - joint3
+      - joint4
+      - gripper_left_joint
+      - gripper_right_joint
+    command_interfaces:
+      - position
+    state_interfaces:
+      - position
+      - velocity
+    state_publish_rate: 50.0
+    action_monitor_rate: 20.0

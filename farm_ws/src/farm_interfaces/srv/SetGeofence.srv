@@ -1,4 +1,0 @@
-geometry_msgs/PolygonStamped polygon
----
-bool success
-string message

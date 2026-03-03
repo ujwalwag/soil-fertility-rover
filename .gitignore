@@ -1,7 +1,11 @@
-# ROS 2 workspace
+# ROS 2 / colcon workspace
 farm_ws/build/
 farm_ws/install/
 farm_ws/log/
+build/
+install/
+log/
+.ros/
 
 # Python
 __pycache__/
@@ -14,6 +18,9 @@ __pycache__/
 venv/
 env/
 ENV/
+.pytest_cache/
+.coverage
+htmlcov/
 
 # IDE
 .vscode/
@@ -29,8 +36,15 @@ Thumbs.db
 *.bak
 *.swp
 *~
+*.orig
 
-# Gazebo
+# Gazebo / sim
 *.sdf.backup
 /tmp/*.urdf
 /tmp/*.sdf
+*.urdf.bak
+
+# Local / generated
+*.local
+.env
+.env.*

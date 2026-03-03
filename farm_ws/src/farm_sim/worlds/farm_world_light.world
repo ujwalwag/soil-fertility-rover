@@ -1,0 +1,219 @@
+<?xml version="1.0" ?>
+<sdf version="1.9">
+  <world name="farm_world">
+    <!-- Lights, ground, physics, scene from template -->
+    <light type="directional" name="sun">
+      <cast_shadows>true</cast_shadows>
+      <pose>0 0 10 0 0 0</pose>
+      <diffuse>1.0 1.0 0.95 1</diffuse>
+      <specular>0.4 0.4 0.4 1</specular>
+      <attenuation><range>1000</range><constant>0.9</constant><linear>0.01</linear><quadratic>0.001</quadratic></attenuation>
+      <direction>-0.5 0.1 -0.9</direction>
+    </light>
+    <light type="directional" name="ambient">
+      <cast_shadows>false</cast_shadows>
+      <pose>0 0 5 0 0 0</pose>
+      <diffuse>0.5 0.5 0.5 1</diffuse>
+      <specular>0.1 0.1 0.1 1</specular>
+      <direction>0 0 -1</direction>
+    </light>
+    <model name="ground_plane">
+      <static>true</static>
+      <link name="link">
+        <collision name="collision"><geometry><plane><normal>0 0 1</normal><size>100 100</size></plane></geometry></collision>
+        <visual name="visual"><geometry><plane><normal>0 0 1</normal><size>100 100</size></plane></geometry>
+          <material><ambient>0.2 0.6 0.2 1</ambient><diffuse>0.3 0.7 0.3 1</diffuse><specular>0.1 0.1 0.1 1</specular></material>
+        </visual>
+      </link>
+    </model>
+    <gravity>0 0 -9.8066</gravity>
+    <physics name="default_physics" default="0" type="ode">
+      <ode><solver><type>quick</type><iters>10</iters><sor>1.3</sor></solver>
+        <constraints><cfm>0.00001</cfm><erp>0.2</erp><contact_max_correcting_vel>100</contact_max_correcting_vel><contact_surface_layer>0.001</contact_surface_layer></constraints>
+      </ode>
+      <max_step_size>0.004</max_step_size>
+      <real_time_factor>1</real_time_factor>
+      <real_time_update_rate>250</real_time_update_rate>
+    </physics>
+    <scene><ambient>0.8 0.8 0.8 1</ambient><background>0.7 0.9 1.0 1</background><shadows>true</shadows></scene>
+
+    <!-- Fence posts -->
+    <model name="fence_post_1"><pose>10 10 0.5 0 0 0</pose><static>true</static>
+      <link name="link"><collision name="collision"><geometry><box><size>0.1 0.1 1.0</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>0.1 0.1 1.0</size></box></geometry><material><ambient>0.4 0.3 0.2 1</ambient><diffuse>0.6 0.4 0.3 1</diffuse></material></visual></link>
+    </model>
+    <model name="fence_post_2"><pose>-10 10 0.5 0 0 0</pose><static>true</static>
+      <link name="link"><collision name="collision"><geometry><box><size>0.1 0.1 1.0</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>0.1 0.1 1.0</size></box></geometry><material><ambient>0.4 0.3 0.2 1</ambient><diffuse>0.6 0.4 0.3 1</diffuse></material></visual></link>
+    </model>
+
+    <!-- Light: 160 maize plants (8 rows + 4 extra rows, 20 plants/row) -->
+    <include><uri>model://maize_01</uri><name>maize_0</name><pose>-7.92 -7.12 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_1</name><pose>-7.12 -7.12 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_2</name><pose>-6.32 -7.12 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_3</name><pose>-5.52 -7.12 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_4</name><pose>-4.72 -7.12 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_5</name><pose>-3.92 -7.12 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_6</name><pose>-3.12 -7.12 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_7</name><pose>-2.32 -7.12 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_8</name><pose>-1.52 -7.12 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_9</name><pose>-0.72 -7.12 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_10</name><pose>0.08 -7.12 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_11</name><pose>0.88 -7.12 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_12</name><pose>1.68 -7.12 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_13</name><pose>2.48 -7.12 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_14</name><pose>3.28 -7.12 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_15</name><pose>4.08 -7.12 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_16</name><pose>4.88 -7.12 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_17</name><pose>5.68 -7.12 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_18</name><pose>6.48 -7.12 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_19</name><pose>7.28 -7.12 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_20</name><pose>-7.92 -5.92 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_21</name><pose>-7.12 -5.92 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_22</name><pose>-6.32 -5.92 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_23</name><pose>-5.52 -5.92 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_24</name><pose>-4.72 -5.92 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_25</name><pose>-3.92 -5.92 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_26</name><pose>-3.12 -5.92 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_27</name><pose>-2.32 -5.92 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_28</name><pose>-1.52 -5.92 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_29</name><pose>-0.72 -5.92 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_30</name><pose>0.08 -5.92 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_31</name><pose>0.88 -5.92 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_32</name><pose>1.68 -5.92 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_33</name><pose>2.48 -5.92 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_34</name><pose>3.28 -5.92 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_35</name><pose>4.08 -5.92 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_36</name><pose>4.88 -5.92 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_37</name><pose>5.68 -5.92 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_38</name><pose>6.48 -5.92 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_39</name><pose>7.28 -5.92 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_40</name><pose>-7.92 -4.72 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_41</name><pose>-7.12 -4.72 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_42</name><pose>-6.32 -4.72 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_43</name><pose>-5.52 -4.72 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_44</name><pose>-4.72 -4.72 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_45</name><pose>-3.92 -4.72 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_46</name><pose>-3.12 -4.72 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_47</name><pose>-2.32 -4.72 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_48</name><pose>-1.52 -4.72 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_49</name><pose>-0.72 -4.72 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_50</name><pose>0.08 -4.72 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_51</name><pose>0.88 -4.72 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_52</name><pose>1.68 -4.72 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_53</name><pose>2.48 -4.72 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_54</name><pose>3.28 -4.72 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_55</name><pose>4.08 -4.72 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_56</name><pose>4.88 -4.72 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_57</name><pose>5.68 -4.72 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_58</name><pose>6.48 -4.72 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_59</name><pose>7.28 -4.72 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_60</name><pose>-7.92 -3.52 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_61</name><pose>-7.12 -3.52 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_62</name><pose>-6.32 -3.52 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_63</name><pose>-5.52 -3.52 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_64</name><pose>-4.72 -3.52 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_65</name><pose>-3.92 -3.52 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_66</name><pose>-3.12 -3.52 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_67</name><pose>-2.32 -3.52 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_68</name><pose>-1.52 -3.52 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_69</name><pose>-0.72 -3.52 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_70</name><pose>0.08 -3.52 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_71</name><pose>0.88 -3.52 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_72</name><pose>1.68 -3.52 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_73</name><pose>2.48 -3.52 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_74</name><pose>3.28 -3.52 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_75</name><pose>4.08 -3.52 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_76</name><pose>4.88 -3.52 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_77</name><pose>5.68 -3.52 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_78</name><pose>6.48 -3.52 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_79</name><pose>7.28 -3.52 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_80</name><pose>-7.92 -2.32 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_81</name><pose>-7.12 -2.32 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_82</name><pose>-6.32 -2.32 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_83</name><pose>-5.52 -2.32 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_84</name><pose>-4.72 -2.32 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_85</name><pose>-3.92 -2.32 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_86</name><pose>-3.12 -2.32 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_87</name><pose>-2.32 -2.32 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_88</name><pose>-1.52 -2.32 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_89</name><pose>-0.72 -2.32 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_90</name><pose>0.08 -2.32 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_91</name><pose>0.88 -2.32 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_92</name><pose>1.68 -2.32 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_93</name><pose>2.48 -2.32 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_94</name><pose>3.28 -2.32 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_95</name><pose>4.08 -2.32 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_96</name><pose>4.88 -2.32 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_97</name><pose>5.68 -2.32 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_98</name><pose>6.48 -2.32 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_99</name><pose>7.28 -2.32 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_100</name><pose>-7.92 -1.12 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_101</name><pose>-7.12 -1.12 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_102</name><pose>-6.32 -1.12 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_103</name><pose>-5.52 -1.12 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_104</name><pose>-4.72 -1.12 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_105</name><pose>-3.92 -1.12 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_106</name><pose>-3.12 -1.12 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_107</name><pose>-2.32 -1.12 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_108</name><pose>-1.52 -1.12 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_109</name><pose>-0.72 -1.12 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_110</name><pose>0.08 -1.12 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_111</name><pose>0.88 -1.12 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_112</name><pose>1.68 -1.12 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_113</name><pose>2.48 -1.12 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_114</name><pose>3.28 -1.12 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_115</name><pose>4.08 -1.12 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_116</name><pose>4.88 -1.12 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_117</name><pose>5.68 -1.12 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_118</name><pose>6.48 -1.12 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_119</name><pose>7.28 -1.12 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_120</name><pose>-7.92 0.08 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_121</name><pose>-7.12 0.08 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_122</name><pose>-6.32 0.08 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_123</name><pose>-5.52 0.08 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_124</name><pose>-4.72 0.08 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_125</name><pose>-3.92 0.08 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_126</name><pose>-3.12 0.08 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_127</name><pose>-2.32 0.08 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_128</name><pose>-1.52 0.08 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_129</name><pose>-0.72 0.08 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_130</name><pose>0.08 0.08 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_131</name><pose>0.88 0.08 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_132</name><pose>1.68 0.08 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_133</name><pose>2.48 0.08 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_134</name><pose>3.28 0.08 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_135</name><pose>4.08 0.08 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_136</name><pose>4.88 0.08 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_137</name><pose>5.68 0.08 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_138</name><pose>6.48 0.08 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_139</name><pose>7.28 0.08 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_140</name><pose>-7.92 1.28 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_141</name><pose>-7.12 1.28 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_142</name><pose>-6.32 1.28 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_143</name><pose>-5.52 1.28 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_144</name><pose>-4.72 1.28 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_145</name><pose>-3.92 1.28 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_146</name><pose>-3.12 1.28 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_147</name><pose>-2.32 1.28 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_148</name><pose>-1.52 1.28 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_149</name><pose>-0.72 1.28 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_150</name><pose>0.08 1.28 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_151</name><pose>0.88 1.28 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_152</name><pose>1.68 1.28 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_153</name><pose>2.48 1.28 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_154</name><pose>3.28 1.28 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_155</name><pose>4.08 1.28 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_156</name><pose>4.88 1.28 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_157</name><pose>5.68 1.28 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_158</name><pose>6.48 1.28 0 0 0 0</pose></include>
+    <include><uri>model://maize_01</uri><name>maize_159</name><pose>7.28 1.28 0 0 0 0</pose></include>
+
+    <include><uri>model://big_tree</uri><name>tree_1</name><pose>15 15 0 0 0 0</pose></include>
+    <include><uri>model://big_tree</uri><name>tree_2</name><pose>-15 15 0 0 0 0</pose></include>
+    <include><uri>model://big_tree</uri><name>tree_3</name><pose>15 -15 0 0 0 0</pose></include>
+    <include><uri>model://big_tree</uri><name>tree_4</name><pose>-15 -15 0 0 0 0</pose></include>
+    <include><uri>model://big_tree</uri><name>tree_5</name><pose>20 0 0 0 0 0</pose></include>
+    <include><uri>model://big_tree</uri><name>tree_6</name><pose>-20 0 0 0 0 0</pose></include>
+  </world>
+</sdf>

@@ -1,52 +1,77 @@
+"""Launch full simulation: Gazebo world + robot + bridge + Nav2."""
+
 from launch import LaunchDescription
-from launch.actions import IncludeLaunchDescription, DeclareLaunchArgument
+from launch.actions import IncludeLaunchDescription, DeclareLaunchArgument, TimerAction, SetEnvironmentVariable
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import LaunchConfiguration
-from launch_ros.actions import Node
 import os
 from ament_index_python.packages import get_package_share_directory
 
-
+# Use FastDDS to avoid CycloneDDS "Failed to find a free participant index" error
 def generate_launch_description():
-    # Get package directories
-    pkg_farm_gazebo = get_package_share_directory('farm_gazebo')
-    
-    # Launch arguments
-    use_sim_time = LaunchConfiguration('use_sim_time', default='true')
-    
-    # Include Gazebo simulation with robot
-    gazebo_sim = IncludeLaunchDescription(
+    pkg_farm_sim = get_package_share_directory("farm_sim")
+    use_sim_time = LaunchConfiguration("use_sim_time", default="true")
+    world = LaunchConfiguration(
+        "world",
+        default=os.path.join(pkg_farm_sim, "worlds", "farm_world_light.world")
+    )
+
+    robot_model = LaunchConfiguration("robot_model", default="ugvbeast")
+
+    farm_world = IncludeLaunchDescription(
         PythonLaunchDescriptionSource([
-            os.path.join(pkg_farm_gazebo, 'launch', 'farm_sim.launch.py')
+            os.path.join(pkg_farm_sim, "launch", "farm_world.launch.py")
         ]),
         launch_arguments={
-            'use_sim_time': use_sim_time,
-            'x_pose': '0.0',
-            'y_pose': '0.0',
-            'z_pose': '0.0',
-            'yaw_pose': '0.0'
+            "world": world,
+            "robot_model": robot_model,
+            "use_sim_time": use_sim_time,
+            "x_pose": "9.0",
+            "y_pose": "9.0",
+            "z_pose": "0.01",
+            "yaw_pose": "0.0"
         }.items()
     )
 
-    # Onboard nodes (commented out until executables are implemented)
-    # These will be uncommented as the nodes are developed
-    onboard_nodes = [
-        # Node(package='farm_mission', executable='mission_node', name='mission_node', output='screen'),
-        # Node(package='farm_navigation', executable='waypoint_sampler', name='waypoint_sampler', output='screen'),
-        # Node(package='farm_arm', executable='sampling_orchestrator', name='sampling_orchestrator', output='screen'),
-        # Node(package='farm_perception', executable='opencv_verification', name='opencv_verification', output='screen'),
-        # Node(package='farm_sensors', executable='state_estimation', name='state_estimation', output='screen'),
-        # Node(package='farm_sensors', executable='soil_data_pipeline', name='soil_data_pipeline', output='screen'),
-        # Node(package='farm_sensors', executable='robot_health', name='robot_health', output='screen'),
-        # Node(package='farm_base_station', executable='lora_onboard', name='lora_onboard', output='screen'),
-    ]
+    gz_bridge_clock = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource([
+            os.path.join(pkg_farm_sim, "launch", "gz_bridge_clock.launch.py")
+        ]),
+    )
+    gz_bridge = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource([
+            os.path.join(pkg_farm_sim, "launch", "gz_bridge.launch.py")
+        ]),
+    )
+    camera_bridge = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource([
+            os.path.join(pkg_farm_sim, "launch", "camera_bridge.launch.py")
+        ]),
+        launch_arguments={"use_sim_time": use_sim_time}.items(),
+    )
+    # Clock 5s; sensors 25s (after robot spawn 20s). Camera via gz_bridge + ros_gz_image fallback.
+    gz_bridge_clock_delayed = TimerAction(period=5.0, actions=[gz_bridge_clock])
+    gz_bridge_delayed = TimerAction(period=25.0, actions=[gz_bridge, camera_bridge])
+
+    spawn_controllers = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource([
+            os.path.join(pkg_farm_sim, "launch", "spawn_controllers.launch.py")
+        ]),
+        launch_arguments={"use_sim_time": use_sim_time}.items()
+    )
 
     return LaunchDescription([
+        SetEnvironmentVariable("RMW_IMPLEMENTATION", "rmw_fastrtps_cpp"),
+        DeclareLaunchArgument("use_sim_time", default_value="true"),
+        DeclareLaunchArgument("robot_model", default_value="ugvbeast",
+                             description="Robot model: ugvbeast or turtlebot"),
         DeclareLaunchArgument(
-            'use_sim_time',
-            default_value='true',
-            description='Use simulation time if true'
+            "world",
+            default_value=os.path.join(pkg_farm_sim, "worlds", "farm_world_light.world"),
+            description="World file (farm_world_light.world = stable, farm_world.world = full)",
         ),
-        gazebo_sim,
-        *onboard_nodes,
+        farm_world,
+        gz_bridge_clock_delayed,
+        gz_bridge_delayed,
+        spawn_controllers,
     ])

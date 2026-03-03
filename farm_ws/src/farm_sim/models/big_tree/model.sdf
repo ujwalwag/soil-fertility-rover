@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<sdf version="1.9">
+  <model name="big_tree">
+    <static>true</static>
+    <link name="trunk">
+      <collision name="collision">
+        <geometry>
+          <cylinder>
+            <radius>0.3</radius>
+            <length>3.0</length>
+          </cylinder>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <cylinder>
+            <radius>0.3</radius>
+            <length>3.0</length>
+          </cylinder>
+        </geometry>
+        <material>
+          <ambient>0.4 0.3 0.2 1</ambient>
+          <diffuse>0.5 0.35 0.25 1</diffuse>
+          <specular>0.1 0.1 0.1 1</specular>
+        </material>
+      </visual>
+    </link>
+    <link name="foliage">
+      <collision name="collision">
+        <geometry>
+          <sphere>
+            <radius>2.0</radius>
+          </sphere>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <sphere>
+            <radius>2.0</radius>
+          </sphere>
+        </geometry>
+        <material>
+          <ambient>0.1 0.4 0.1 1</ambient>
+          <diffuse>0.2 0.6 0.2 1</diffuse>
+          <specular>0.1 0.1 0.1 1</specular>
+        </material>
+      </visual>
+    </link>
+    <joint name="foliage_joint" type="fixed">
+      <parent>trunk</parent>
+      <child>foliage</child>
+      <pose>0 0 2.5 0 0 0</pose>
+    </joint>
+  </model>
+</sdf>

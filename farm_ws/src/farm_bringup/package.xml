@@ -3,22 +3,12 @@
 <package format="3">
   <name>farm_bringup</name>
   <version>0.0.0</version>
-  <description>Launch and bringup for soil fertility rover</description>
+  <description>Launch files for farm rover simulation and GUI</description>
   <maintainer email="ujwalwag@todo.todo">ujwalwag</maintainer>
   <license>MIT</license>
 
+  <exec_depend>farm_sim</exec_depend>
   <exec_depend>farm_description</exec_depend>
-  <exec_depend>farm_gazebo</exec_depend>
-  <exec_depend>farm_control</exec_depend>
-  <exec_depend>farm_navigation</exec_depend>
-  <exec_depend>farm_arm</exec_depend>
-  <exec_depend>farm_perception</exec_depend>
-  <exec_depend>farm_sensors</exec_depend>
-  <exec_depend>farm_mission</exec_depend>
-  <exec_depend>farm_base_station</exec_depend>
-  <exec_depend>farm_interfaces</exec_depend>
-  <exec_depend>ament_index_python</exec_depend>
-
   <export>
     <build_type>ament_python</build_type>
   </export>
