@@ -1,92 +1,93 @@
 # Soil Fertility Rover
 
-ROS 2 simulation and GUI for a farm rover with differential drive, arm, and sensors. Built for Gazebo Harmonic (gz-sim).
+ROS 2 **Jazzy** workspace for a soil-sampling rover: **Gazebo Harmonic** simulation, **Nav2**-oriented navigation, **PyQt** GUI, and stubs for field coverage and arm control. Packages use the `sfr_*` prefix (soil fertility rover); the colcon workspace directory remains `farm_ws`.
 
-## Overview
-
-- **Simulation:** Gazebo world, UGV Beast–style base with Open Manipulator arm, lidar, IMU, camera.
-- **Control:** `diff_drive_controller` (cmd_vel / odom), joint trajectory controller for the arm.
-- **GUI:** Map view, camera feed placeholder, remote drive and arm controls, simple goal-based navigation.
-
-## Requirements
-
-- ROS 2 Jazzy (or compatible)
-- Gazebo Harmonic (`gz sim`)
-- Packages: `ros_gz_sim`, `ros_gz_bridge`, `ros_gz_control`, `ros_gz_image`, `diff_drive_controller`, `joint_trajectory_controller`, etc.
-
-## Workspace layout
+## Repository layout
 
 ```
 soil-fertility-rover/
-├── farm_ws/                    # ROS 2 workspace
-│   └── src/
-│       ├── farm_bringup/       # Launch files (sim, sim_with_gui)
-│       ├── farm_description/  # URDF (ugvbeast_arm), meshes
-│       ├── farm_gui/          # PyQt5 GUI (map, controls, camera)
-│       ├── farm_sim/          # Gazebo world, spawn, bridges, controllers
-│       └── virtual_maize_field/  # Maize models (optional)
+├── farm_ws/src/
+│   ├── sfr_description/   # URDF, meshes (no nodes)
+│   ├── sfr_simulation/    # Gazebo worlds, spawn, ros_gz bridges, sim controllers
+│   ├── sfr_navigation/   # Nav2 YAML, maps, waypoint / coverage planner stubs
+│   ├── sfr_arm/           # MoveIt-oriented YAML, arm_controller stub
+│   ├── sfr_gui/           # PyQt GUI
+│   └── sfr_bringup/       # Top-level launches
+├── docker/                # Dockerfile + compose for dev / CI-style builds
 ├── docs/
-├── scripts/
-├── LICENSE
+├── scripts/               # setup_env.sh, run_sim.sh
 └── README.md
 ```
+
+## Requirements
+
+- ROS 2 Jazzy
+- Gazebo Harmonic (`gz sim`)
+- For the full stack: `ros_gz_sim`, `ros_gz_bridge`, `ros_gz_control`, `ros_gz_image`, controller packages, `nav2_bringup`, and other deps pulled in via `rosdep` (see [scripts/setup_env.sh](scripts/setup_env.sh))
 
 ## Build
 
 ```bash
 cd farm_ws
+source /opt/ros/jazzy/setup.bash
 colcon build --symlink-install
 source install/setup.bash
 ```
 
-To build only core packages:
+From the repo root (runs `rosdep` then `colcon build` in `farm_ws`):
 
 ```bash
-colcon build --packages-select farm_description farm_sim farm_bringup farm_gui
-source install/setup.bash
+bash scripts/setup_env.sh
 ```
 
 ## Run
 
-**Simulation + GUI (recommended):**
+| Command | Purpose |
+|--------|---------|
+| `ros2 launch sfr_bringup sim_with_gui.launch.py` | Gazebo + GUI (good default when you want the camera UI) |
+| `ros2 launch sfr_bringup full_sim.launch.py` | Simulation + Nav2 (Nav2 delayed ~32 s) |
+| `ros2 launch sfr_bringup full_sim_with_gui.launch.py` | Sim + Nav2 + GUI (Nav2 delayed ~32 s; GUI after ~36 s) |
+| `ros2 launch sfr_bringup sim.launch.py` | Simulation only |
+| `ros2 launch sfr_gui gui.launch.py` | GUI only (can start sim from the UI) |
+| `ros2 launch sfr_bringup real_robot.launch.py` | Hardware bringup stub |
+
+After a successful build:
 
 ```bash
-source farm_ws/install/setup.bash
-ros2 launch farm_bringup sim_with_gui.launch.py
+bash scripts/run_sim.sh
 ```
 
-- Wait ~25–30 s for the world to load and controllers to start.
-- Use the GUI: drive buttons for remote control, or set a goal on the map and use “Navigate to dropped point” for simple autonomous nav.
+Launches set `RMW_IMPLEMENTATION=rmw_fastrtps_cpp` where relevant.
 
-**Simulation only:**
+## Docker
+
+Optional dev shell with the repo mounted at `/ws` and `working_dir` `/ws/farm_ws`:
 
 ```bash
-ros2 launch farm_bringup sim.launch.py
+docker compose -f docker/compose.yaml run --rm dev
 ```
 
-**GUI only** (e.g. if sim is already running elsewhere):
+Inside the container, source ROS and build as usual (`source /opt/ros/jazzy/setup.bash`, then `colcon build`). The image in [docker/Dockerfile](docker/Dockerfile) is a minimal Jazzy base; install Gazebo Harmonic and extra packages on the host or extend the Dockerfile for a fully self-contained sim image.
 
-```bash
-ros2 launch farm_gui gui.launch.py
-```
+## CI
 
-Then click “Start Simulation” in the GUI to launch the sim in the background.
+GitHub Actions builds the `sfr_*` packages in a `ros:jazzy-ros-base` container (see [.github/workflows/ci.yml](.github/workflows/ci.yml)).
 
-## Topics (main)
+## Documentation
 
-| Topic        | Type              | Description        |
-|-------------|-------------------|--------------------|
-| `/cmd_vel`  | `geometry_msgs/Twist` | Velocity commands  |
-| `/odom`     | `nav_msgs/Odometry`   | Odometry           |
-| `/scan`     | `sensor_msgs/LaserScan` | Lidar             |
-| `/imu`      | `sensor_msgs/Imu`     | IMU               |
-| `/camera/image_raw` | `sensor_msgs/Image` | Camera (bridged)   |
+- [docs/architecture.md](docs/architecture.md) — system overview
+- [docs/gui_guide.md](docs/gui_guide.md) — GUI usage
+- [docs/simulation_setup.md](docs/simulation_setup.md) — simulation setup
+- [docs/hardware_setup.md](docs/hardware_setup.md) — hardware notes
+- [docs/gazebo_wsl_troubleshooting.md](docs/gazebo_wsl_troubleshooting.md) — WSL / Gazebo issues
+- [docs/experiments.md](docs/experiments.md) — experiment log
+- [docs/system_architecture.md](docs/system_architecture.md) — legacy / alternate architecture notes
 
-## Configuration
+## Configuration notes
 
-- **Spawn pose:** `sim.launch.py` and `farm_world.launch.py` use `x_pose`, `y_pose`, `z_pose`, `yaw_pose` (defaults: 9, 9, 0.01, 0).
-- **Diff drive:** `farm_sim/config/all_controllers.yaml` (wheel separation, radius, odom, cmd_vel).
-- **RMW:** Launches set `RMW_IMPLEMENTATION=rmw_fastrtps_cpp` to avoid CycloneDDS participant issues.
+- Default spawn pose: check `x_pose` / `y_pose` in `sfr_bringup` and `sfr_simulation` launch files (often around the map origin).
+- Controllers: [farm_ws/src/sfr_simulation/config/all_controllers.yaml](farm_ws/src/sfr_simulation/config/all_controllers.yaml)
+- Maps and Nav2: [farm_ws/src/sfr_navigation/config/](farm_ws/src/sfr_navigation/config/)
 
 ## License
 

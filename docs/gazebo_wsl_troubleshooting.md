@@ -46,7 +46,7 @@ If GUI doesn't work, use headless mode:
 
 ```bash
 # Launch in headless mode
-ros2 launch farm_gazebo farm_world.launch.py headless:=true
+ros2 launch sfr_simulation farm_world.launch.py
 
 # Or use gz web (if available)
 gz web -s

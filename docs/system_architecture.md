@@ -37,4 +37,4 @@ They communicate via **LoRa** (ROS 2 messages) and a **data uplink** (logs, soil
 
 ## Packages
 
-See [README](../README.md) for the `farm_*` package list and roles.
+See [README](../README.md) and [architecture.md](architecture.md) for the `sfr_*` package list and roles.

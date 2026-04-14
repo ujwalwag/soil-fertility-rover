@@ -1,0 +1,15 @@
+# Optional: mount workspace and build inside container.
+services:
+  dev:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    volumes:
+      - ..:/ws
+    working_dir: /ws/farm_ws
+    network_mode: host
+    environment:
+      - DISPLAY=${DISPLAY}
+      - RMW_IMPLEMENTATION=rmw_fastrtps_cpp
+    stdin_open: true
+    tty: true

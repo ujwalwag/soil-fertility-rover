@@ -34,6 +34,6 @@
 
 - LoRa topics: `farm_base_station` (base) and onboard LoRa node.
 - Sensor topics: used by `farm_sensors` (soil pipeline, state estimation, health).
-- Controller config: `farm_control` and `farm_bringup` launch parameters.
+- Controller config: `sfr_simulation` and `sfr_bringup` launch parameters.
 
 See package `README` files and launch args for topic remapping and frame IDs.

@@ -51,7 +51,7 @@ cd farm_ws && colcon build --symlink-install && source install/setup.bash
 ./scripts/run_sim.sh
 ```
 
-Launches the Gazebo world and required nodes. See `farm_bringup` launch files for details.
+Launches the Gazebo world and required nodes. See `sfr_bringup` launch files for details.
 
 ## Docker
 
