@@ -1,4 +1,4 @@
-# Soil Fertility Detection Rover
+# Autonomous Rover for Soil Fertility Detection - Simulation
 
 ROS 2 **Jazzy** workspace for a soil-sampling rover: **Gazebo Harmonic** simulation, **Nav2**-oriented navigation, **PyQt** GUI, and stubs for field coverage and arm control. Packages use the `sfr_*` prefix (soil fertility rover); the colcon workspace directory remains `farm_ws`.
 
